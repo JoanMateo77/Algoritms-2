@@ -25,13 +25,27 @@ export default function ListaCircularPage() {
     codigo: null,
   });
 
-  function actualizarVista() {
-    const canciones = listaRef.current.toArray();
-    const actual = nodoActualRef.current ? nodoActualRef.current.value : null;
+  function posicionDelCursor() {
+    const buscado = nodoActualRef.current;
+    const head = listaRef.current.head;
+    if (!buscado || !head) return -1;
 
+    let indice = 0;
+    let nodo = head;
+
+    do {
+      if (nodo === buscado) return indice;
+      nodo = nodo.next;
+      indice++;
+    } while (nodo !== head);
+
+    return -1;
+  }
+
+  function actualizarVista() {
     setVista({
-      canciones,
-      indiceActual: actual ? canciones.indexOf(actual) : -1,
+      canciones: listaRef.current.toArray(),
+      indiceActual: posicionDelCursor(),
     });
   }
 

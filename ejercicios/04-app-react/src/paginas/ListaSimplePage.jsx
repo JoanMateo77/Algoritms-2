@@ -25,13 +25,26 @@ export default function ListaSimplePage() {
     codigo: null,
   });
 
-  function actualizarVista() {
-    const canciones = listaRef.current.toArray();
-    const actual = nodoActualRef.current ? nodoActualRef.current.value : null;
+  function posicionDelCursor() {
+    const buscado = nodoActualRef.current;
+    if (!buscado) return -1;
 
+    let indice = 0;
+    let nodo = listaRef.current.head;
+
+    while (nodo) {
+      if (nodo === buscado) return indice;
+      nodo = nodo.next;
+      indice++;
+    }
+
+    return -1;
+  }
+
+  function actualizarVista() {
     setVista({
-      canciones,
-      indiceActual: actual ? canciones.indexOf(actual) : -1,
+      canciones: listaRef.current.toArray(),
+      indiceActual: posicionDelCursor(),
       tamano: listaRef.current.size(),
     });
   }

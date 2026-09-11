@@ -24,14 +24,28 @@ export default function ListaDoblePage() {
     codigo: null,
   });
 
+  function posicionDelCursor() {
+    const buscado = nodoActualRef.current;
+    if (!buscado) return -1;
+
+    let indice = 0;
+    let nodo = historialRef.current.head;
+
+    while (nodo) {
+      if (nodo === buscado) return indice;
+      nodo = nodo.next;
+      indice++;
+    }
+
+    return -1;
+  }
+
   function actualizarVista() {
-    const paginas = historialRef.current.toArray();
     const nodo = nodoActualRef.current;
-    const actual = nodo ? nodo.value : null;
 
     setVista({
-      paginas,
-      indiceActual: actual ? paginas.indexOf(actual) : -1,
+      paginas: historialRef.current.toArray(),
+      indiceActual: posicionDelCursor(),
       puedeAtras: Boolean(nodo && nodo.prev),
       puedeAdelante: Boolean(nodo && nodo.next),
     });
