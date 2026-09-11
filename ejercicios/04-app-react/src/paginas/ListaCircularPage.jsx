@@ -21,7 +21,7 @@ export default function ListaCircularPage() {
 
   const [reproducidas, setReproducidas] = useState(0);
   const [ultimaAccion, setUltimaAccion] = useState({
-    texto: 'Dale a siguiente varias veces y mira qué pasa al llegar al final.',
+    texto: 'Sin operaciones todavía. El tail apunta al head, así que no hay final.',
     codigo: null,
   });
 
@@ -45,9 +45,9 @@ export default function ListaCircularPage() {
 
     setUltimaAccion({
       texto: eraElUltimo
-        ? 'Estabas en la última canción y volvió la primera. No hubo ningún if. ' +
-          'El nodo final apunta al primero, así que next simplemente cerró el círculo.'
-        : 'Avanzamos un nodo. Exactamente la misma línea que en la lista simple.',
+        ? 'El cursor estaba en el tail y pasó al head. No interviene ningún condicional: ' +
+          'el puntero next del tail ya apunta al primer nodo.'
+        : 'Cursor movido al siguiente nodo a través del puntero next. Coste O(1).',
       codigo: 'nodoActual = nodoActual.next;',
     });
   }
@@ -62,9 +62,9 @@ export default function ListaCircularPage() {
 
     setUltimaAccion({
       texto:
-        `Quitamos "${cancion.titulo}" y el círculo se volvió a cerrar. ` +
-        'Ese es el paso que más se olvida al programar listas circulares: ' +
-        'si el eliminado era el head, el tail tiene que apuntar al head nuevo.',
+        `Nodo "${cancion.titulo}" eliminado y círculo cerrado de nuevo. ` +
+        'Si el nodo eliminado era el head, el tail debe pasar a apuntar al head nuevo, ' +
+        'o el círculo queda roto.',
       codigo: 'tail.next = head;',
     });
   }
@@ -76,7 +76,10 @@ export default function ListaCircularPage() {
     nodoActualRef.current = lista.head;
     setReproducidas(0);
     actualizarVista();
-    setUltimaAccion({ texto: 'Playlist recargada.', codigo: null });
+    setUltimaAccion({
+      texto: 'Lista reconstruida con los nodos iniciales.',
+      codigo: null,
+    });
   }
 
   const cancionActual =
@@ -129,15 +132,15 @@ export default function ListaCircularPage() {
       </section>
 
       <section>
-        <h2>Así se ve la lista por dentro</h2>
+        <h2>Estado de la lista</h2>
         <DiagramaNodos
           items={vista.canciones.map((c) => c.titulo)}
           indiceActual={vista.indiceActual}
           tipo="circular"
         />
         <p className="pie-diagrama">
-          No hay <code>null</code> en ninguna parte. Ese es el detalle que lo
-          cambia todo.
+          Ningún puntero vale <code>null</code>. El del tail apunta al head, y ese
+          es el único cambio respecto a la lista simple.
         </p>
       </section>
 
@@ -157,7 +160,7 @@ export default function ListaCircularPage() {
           </ol>
         </section>
 
-        <Explicacion titulo="Qué acaba de pasar" codigo={ultimaAccion.codigo}>
+        <Explicacion titulo="Última operación" codigo={ultimaAccion.codigo}>
           <p>{ultimaAccion.texto}</p>
         </Explicacion>
       </div>
@@ -165,8 +168,10 @@ export default function ListaCircularPage() {
       <section className="nota">
         <p>
           El código que avanza es idéntico al de la lista simple:{' '}
-          <code>nodoActual = nodoActual.next</code>. Lo que cambia es cómo están
-          conectados los nodos, no el reproductor.
+          <code>nodoActual = nodoActual.next</code>. La diferencia está en cómo
+          se conectaron los nodos, no en el reproductor. La estructura de datos
+          aporta el comportamiento y evita escribir el condicional que detecta el
+          final.
         </p>
       </section>
     </div>

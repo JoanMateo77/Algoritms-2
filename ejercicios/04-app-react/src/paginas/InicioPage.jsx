@@ -12,9 +12,9 @@ export default function InicioPage() {
 
       <section className="nota">
         <p>
-          Cada página usa una estructura de datos distinta, implementada a mano.
-          Los botones mueven punteros de verdad y el diagrama dibuja el estado de
-          la lista después de cada acción.
+          Cada página usa una estructura de datos distinta, implementada a mano y
+          sin librerías. Los botones operan sobre los punteros reales, y el
+          diagrama refleja el estado de la lista después de cada operación.
         </p>
       </section>
 

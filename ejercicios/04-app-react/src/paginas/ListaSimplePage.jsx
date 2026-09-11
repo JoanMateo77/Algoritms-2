@@ -21,7 +21,7 @@ export default function ListaSimplePage() {
   }));
 
   const [ultimaAccion, setUltimaAccion] = useState({
-    texto: 'Todavía no has hecho nada. Dale a Play.',
+    texto: 'Sin operaciones todavía. El cursor no está colocado en ningún nodo.',
     codigo: null,
   });
 
@@ -40,7 +40,7 @@ export default function ListaSimplePage() {
     nodoActualRef.current = listaRef.current.head;
     actualizarVista();
     setUltimaAccion({
-      texto: 'El reproductor se paró en el primer nodo de la lista.',
+      texto: 'Cursor colocado en el head, el primer nodo de la lista. Coste O(1).',
       codigo: 'nodoActual = lista.head;',
     });
   }
@@ -48,7 +48,7 @@ export default function ListaSimplePage() {
   function siguiente() {
     if (!nodoActualRef.current) {
       setUltimaAccion({
-        texto: 'No hay ninguna canción sonando. Primero dale a Play.',
+        texto: 'No hay nodo actual: el cursor está en null y no hay desde dónde avanzar.',
         codigo: null,
       });
       return;
@@ -60,13 +60,13 @@ export default function ListaSimplePage() {
     if (!nodoActualRef.current) {
       setUltimaAccion({
         texto:
-          'Se acabó la playlist. El último nodo apuntaba a null, y en una lista simple ' +
-          'eso significa el final. No hay forma de devolverse: ningún nodo sabe quién viene antes que él.',
+          'Fin de la lista: el último nodo tiene next en null y el cursor quedó en null. ' +
+          'En una lista simple no existe forma de retroceder, porque ningún nodo guarda quién lo apunta.',
         codigo: 'nodoActual = nodoActual.next;',
       });
     } else {
       setUltimaAccion({
-        texto: 'Avanzamos un nodo siguiendo el puntero next. Una sola línea.',
+        texto: 'Cursor movido al siguiente nodo a través del puntero next. Coste O(1).',
         codigo: 'nodoActual = nodoActual.next;',
       });
     }
@@ -82,8 +82,8 @@ export default function ListaSimplePage() {
 
     setUltimaAccion({
       texto:
-        `Quitamos "${cancion.titulo}". El nodo anterior ahora apunta directo al siguiente. ` +
-        'Eliminar en una lista enlazada es solo redirigir una flecha.',
+        `Nodo "${cancion.titulo}" eliminado. El nodo anterior pasa a apuntar directamente ` +
+        'al siguiente. Localizarlo cuesta O(n); reconectar la flecha, O(1).',
       codigo: 'anterior.next = anterior.next.next;',
     });
   }
@@ -100,8 +100,8 @@ export default function ListaSimplePage() {
 
     setUltimaAccion({
       texto:
-        'Agregamos al final. Como guardamos tail, no hubo que recorrer nada: ' +
-        'cuesta lo mismo con 8 canciones que con un millón.',
+        'Nodo añadido al final. Como la lista guarda tail, no hubo recorrido: ' +
+        'el coste es O(1) con 8 nodos o con un millón.',
       codigo: 'tail.next = nuevoNodo;\ntail = nuevoNodo;',
     });
   }
@@ -112,7 +112,10 @@ export default function ListaSimplePage() {
     listaRef.current = lista;
     nodoActualRef.current = null;
     actualizarVista();
-    setUltimaAccion({ texto: 'Playlist recargada desde cero.', codigo: null });
+    setUltimaAccion({
+      texto: 'Lista reconstruida con los nodos iniciales. El cursor vuelve a null.',
+      codigo: null,
+    });
   }
 
   const cancionActual =
@@ -137,7 +140,7 @@ export default function ListaSimplePage() {
               <span className="pantalla-artista">{cancionActual.artista}</span>
             </>
           ) : (
-            <span className="pantalla-vacia">Nada sonando</span>
+            <span className="pantalla-vacia">Sin reproducción</span>
           )}
         </div>
 
@@ -155,7 +158,7 @@ export default function ListaSimplePage() {
       </section>
 
       <section>
-        <h2>Así se ve la lista por dentro</h2>
+        <h2>Estado de la lista</h2>
         <DiagramaNodos
           items={vista.canciones.map((c) => c.titulo)}
           indiceActual={vista.indiceActual}
@@ -180,16 +183,17 @@ export default function ListaSimplePage() {
           </ol>
         </section>
 
-        <Explicacion titulo="Qué acaba de pasar" codigo={ultimaAccion.codigo}>
+        <Explicacion titulo="Última operación" codigo={ultimaAccion.codigo}>
           <p>{ultimaAccion.texto}</p>
         </Explicacion>
       </div>
 
       <section className="nota">
         <p>
-          No hay botón de canción anterior: en una lista simple cada nodo solo
-          guarda la flecha hacia adelante. Para retroceder habría que empezar otra
-          vez desde <code>head</code>. Eso lo resuelve la lista doble.
+          Esta página no tiene botón de canción anterior. En una lista simple cada
+          nodo guarda un único puntero, el que va hacia adelante, así que
+          retroceder obliga a recorrer de nuevo desde <code>head</code>: O(n) por
+          cada paso atrás. La lista doblemente enlazada resuelve esa limitación.
         </p>
       </section>
     </div>

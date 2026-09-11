@@ -20,7 +20,7 @@ export default function ListaDoblePage() {
   });
 
   const [ultimaAccion, setUltimaAccion] = useState({
-    texto: 'El historial está vacío. Visita una página para empezar.',
+    texto: 'Lista vacía: head y tail valen null.',
     codigo: null,
   });
 
@@ -51,10 +51,10 @@ export default function ListaDoblePage() {
 
     setUltimaAccion({
       texto: seBorroElFuturo
-        ? `Visitaste una página nueva estando en el pasado, así que el historial ` +
-          `borró ${seBorroElFuturo} página(s) que tenías hacia adelante. ` +
-          `Por eso el botón → se apagó. Tu navegador hace exactamente esto.`
-        : 'La página nueva se agregó al final del historial y quedaste parado en ella.',
+        ? `Nodo añadido al final. Como el cursor no estaba en el tail, se eliminaron ` +
+          `${seBorroElFuturo} nodo(s) posteriores y el botón de adelante quedó ` +
+          `deshabilitado. Un navegador real hace exactamente esto.`
+        : 'Nodo añadido al final y cursor movido a él. Coste O(1).',
       codigo: seBorroElFuturo
         ? 'historial.removeAfter(nodoActual);\nnodoActual = historial.append(pagina);'
         : 'nodoActual = historial.append(pagina);',
@@ -69,8 +69,8 @@ export default function ListaDoblePage() {
 
     setUltimaAccion({
       texto:
-        'Retrocedimos siguiendo el puntero prev. Costó una sola operación, ' +
-        'sin recorrer nada. Esto es lo que la lista simple no puede hacer.',
+        'Cursor movido al nodo anterior a través del puntero prev. Coste O(1), ' +
+        'sin recorrido. Una lista simple necesitaría O(n) para lo mismo.',
       codigo: 'nodoActual = nodoActual.prev;',
     });
   }
@@ -82,7 +82,7 @@ export default function ListaDoblePage() {
     actualizarVista();
 
     setUltimaAccion({
-      texto: 'Avanzamos siguiendo el puntero next, igual que en la lista simple.',
+      texto: 'Cursor movido al siguiente nodo a través del puntero next. Coste O(1).',
       codigo: 'nodoActual = nodoActual.next;',
     });
   }
@@ -91,7 +91,10 @@ export default function ListaDoblePage() {
     historialRef.current = new DoublyLinkedList();
     nodoActualRef.current = null;
     actualizarVista();
-    setUltimaAccion({ texto: 'Historial borrado.', codigo: null });
+    setUltimaAccion({
+      texto: 'Lista vaciada: head y tail vuelven a null.',
+      codigo: null,
+    });
   }
 
   const paginaActual =
@@ -149,15 +152,15 @@ export default function ListaDoblePage() {
       </section>
 
       <section>
-        <h2>Así se ve el historial por dentro</h2>
+        <h2>Estado de la lista</h2>
         <DiagramaNodos
           items={vista.paginas.map((p) => p.titulo)}
           indiceActual={vista.indiceActual}
           tipo="doble"
         />
         <p className="pie-diagrama">
-          Las flechas van en los dos sentidos. Por eso se puede caminar hacia
-          adelante y hacia atrás con el mismo costo.
+          Cada par de nodos vecinos está unido por dos punteros, uno en cada
+          sentido. Por eso avanzar y retroceder cuestan lo mismo: O(1).
         </p>
       </section>
 
@@ -181,18 +184,21 @@ export default function ListaDoblePage() {
           )}
         </section>
 
-        <Explicacion titulo="Qué acaba de pasar" codigo={ultimaAccion.codigo}>
+        <Explicacion titulo="Última operación" codigo={ultimaAccion.codigo}>
           <p>{ultimaAccion.texto}</p>
         </Explicacion>
       </div>
 
       <section className="nota">
-        <h2>Prueba esto</h2>
+        <h2>Secuencia que conviene probar</h2>
         <ol>
-          <li>Visita cuatro páginas seguidas.</li>
-          <li>Presiona atrás dos veces.</li>
-          <li>Visita una página nueva desde ahí.</li>
-          <li>El historial se acorta y el botón de adelante se apaga.</li>
+          <li>Visitar cuatro páginas seguidas.</li>
+          <li>Retroceder dos veces.</li>
+          <li>Visitar una página nueva desde esa posición.</li>
+          <li>
+            La lista se acorta y el botón de adelante queda deshabilitado: los
+            nodos posteriores al actual se eliminaron.
+          </li>
         </ol>
       </section>
     </div>

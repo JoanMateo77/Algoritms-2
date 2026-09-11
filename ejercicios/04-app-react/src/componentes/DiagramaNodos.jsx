@@ -3,7 +3,8 @@ export default function DiagramaNodos({ items, indiceActual = -1, tipo = 'simple
     return (
       <div className="papel">
         <p className="diagrama-vacio">
-          La lista está vacía. <code>head</code> vale <code>null</code>.
+          Lista vacía: <code>head</code> y <code>tail</code> valen{' '}
+          <code>null</code>.
         </p>
       </div>
     );
@@ -49,11 +50,13 @@ export default function DiagramaNodos({ items, indiceActual = -1, tipo = 'simple
                 )}
 
                 {esUltimo && esCircular && (
-                  <span className="vuelta">vuelve al head</span>
+                  <span className="vuelta">tail.next → head</span>
                 )}
               </div>
 
-              <div className="marca-actual">{esActual && <span>aquí vas</span>}</div>
+              <div className="marca-actual">
+                {esActual && <span>nodo actual</span>}
+              </div>
             </li>
           );
         })}
@@ -61,12 +64,11 @@ export default function DiagramaNodos({ items, indiceActual = -1, tipo = 'simple
 
       <p className="leyenda">
         <span className="leyenda-item">
-          <span className="leyenda-simbolo">•</span> el puntero guarda la dirección
-          de otro nodo
+          <span className="leyenda-simbolo">•</span> puntero a otro nodo
         </span>
         {!esCircular && (
           <span className="leyenda-item">
-            <span className="leyenda-simbolo">∅</span> el puntero vale{' '}
+            <span className="leyenda-simbolo">∅</span> puntero en{' '}
             <code>null</code>
           </span>
         )}
