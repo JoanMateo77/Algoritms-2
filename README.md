@@ -9,11 +9,7 @@ Cada ejercicio está en su propia rama y todas se mezclaron sobre `main`.
 
 | Nombre | Rama | Correo |
 | ------ | ---- | ------ |
-| Joan Mateo | `01-lista-simple` | |
-
-## Enlaces
-
-- Aplicación publicada: _(pendiente)_
+| Joan Mateo Cardona Lorza | `01-lista-simple` a `04-app-react` | joan.cardona@uao.edu.co |
 
 ## Ramas
 
@@ -46,6 +42,11 @@ cd ejercicios/04-app-react
 npm install
 npm run dev
 ```
+
+## Integración continua
+
+En cada push a `main` se corren las pruebas y se compila la app de React, para
+comprobar que todo sigue funcionando. Está en `.github/workflows/pruebas.yml`.
 
 ## Enunciado
 

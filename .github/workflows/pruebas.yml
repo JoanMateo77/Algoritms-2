@@ -1,0 +1,27 @@
+name: Pruebas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: pruebas de las listas
+        run: npm test
+
+      - name: build de la app de react
+        working-directory: ejercicios/04-app-react
+        run: |
+          npm ci
+          npm run build
