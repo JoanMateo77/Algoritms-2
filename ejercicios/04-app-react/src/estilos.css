@@ -682,3 +682,18 @@ button:disabled {
     transition: none !important;
   }
 }
+
+/* Retos de pilas, colas y árboles */
+.formulario { display: grid; gap: .75rem; margin-bottom: 1.5rem; }
+.formulario label { display: grid; gap: .2rem; font-family: var(--sans); font-size: .9rem; }
+.formulario input { width: 100%; padding: .6rem; border: 1px solid var(--borde); font: inherit; }
+.formulario button { justify-self: start; }
+.lista-datos { padding-left: 1.4rem; }
+.lista-datos li { padding: .65rem; border-bottom: 1px solid var(--borde); }
+.lista-datos li strong, .lista-datos li span, .lista-datos li small { display: block; }
+.lista-datos li small { color: var(--tinta-suave); }
+.lienzo-arbol { width: 100%; height: 28rem; border: 1px solid var(--borde); background: var(--papel-hoja); overflow: hidden; }
+.menu-arbol ul { list-style: none; margin: 0; padding-left: 1rem; border-left: 1px solid var(--borde); }
+.menu-arbol li { margin: .5rem 0; }
+.menu-arbol button { text-align: left; }
+.menu-arbol .seleccionado { background: var(--tinta); }

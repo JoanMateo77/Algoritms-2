@@ -19,7 +19,7 @@ export default function InicioPage() {
       </section>
 
       <section>
-        <h2>Las tres estructuras</h2>
+        <h2>Retos de estructuras de datos</h2>
         <div className="tarjetas">
           <Link to="/lista-simple" className="tarjeta">
             <span className="tarjeta-numero">01</span>
@@ -44,6 +44,10 @@ export default function InicioPage() {
               Una playlist en modo repetir. El último nodo apunta al primero y la
               música no se acaba.
             </p>          </Link>
+          <Link to="/pila-libros" className="tarjeta"><span className="tarjeta-numero">04</span><h3>Pila de libros</h3><p>Apilar y retirar libros con LIFO.</p></Link>
+          <Link to="/cola-cajero" className="tarjeta"><span className="tarjeta-numero">05</span><h3>Cola del cajero</h3><p>Atender personas con FIFO.</p></Link>
+          <Link to="/arbol-binario" className="tarjeta"><span className="tarjeta-numero">08</span><h3>Árbol binario</h3><p>Insertar, buscar y comparar recorridos.</p></Link>
+          <Link to="/arbol-menus" className="tarjeta"><span className="tarjeta-numero">09</span><h3>Menú N-ario</h3><p>Renderizar menús y submenús.</p></Link>
         </div>
       </section>
 

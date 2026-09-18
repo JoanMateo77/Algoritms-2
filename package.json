@@ -7,7 +7,11 @@
     "test": "node --test",
     "demo:1": "node ejercicios/01-lista-simple/demo.js",
     "demo:2": "node ejercicios/02-lista-doble/demo.js",
-    "demo:3": "node ejercicios/03-lista-circular/demo.js"
+    "demo:3": "node ejercicios/03-lista-circular/demo.js",
+    "demo:pila": "node ejercicios/04-pila-libros/demo.js",
+    "demo:cola": "node ejercicios/05-cola-cajero/demo.js",
+    "demo:arbol": "node ejercicios/08-arbol-binario/demo.js",
+    "demo:menus": "node ejercicios/09-arbol-nario/demo.js"
   },
   "keywords": [
     "estructuras-de-datos",
