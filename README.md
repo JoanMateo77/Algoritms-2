@@ -56,3 +56,26 @@ comprobar que todo sigue funcionando. Está en `.github/workflows/pruebas.yml`.
 3. Create a project in react with 2 new pages, linked and doubly linked lists.
    Use the implemented lists in each page. Navigate through the lists by using
    buttons inside the pages.
+
+## Retos 04, 05, 08 y 09
+
+Las diapositivas y el PDF de Git están en material-clase. Cada reto tiene datos
+de ejemplo, demo, pruebas y página React. Las guías están en guias/README.md.
+
+| Rama | Reto | Solución |
+| ---- | ---- | -------- |
+| 04-pila-libros | 04, pila de libros | ejercicios/04-pila-libros |
+| 05-cola-cajero | 05, cola del cajero | ejercicios/05-cola-cajero |
+| 08-arbol-binario | 08, árbol binario | ejercicios/08-arbol-binario |
+| 09-arbol-nario | 09, árbol N-ario | ejercicios/09-arbol-nario |
+
+Para ver los ejemplos en consola:
+
+    npm run demo:pila
+    npm run demo:cola
+    npm run demo:arbol
+    npm run demo:menus
+
+Después inicia la app React como se indica arriba y abre las páginas Pila,
+Cola, Árbol binario y Menú N-ario. Cada rama contiene su ejercicio. Main
+reúne los cuatro retos y las páginas.
