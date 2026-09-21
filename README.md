@@ -60,7 +60,7 @@ comprobar que todo sigue funcionando. Está en `.github/workflows/pruebas.yml`.
 ## Retos 04, 05, 08 y 09
 
 Las diapositivas y el PDF de Git están en material-clase. Cada reto tiene datos
-de ejemplo, demo, pruebas y página React. Las guías están en guias/README.md.
+de ejemplo, demo, pruebas y página React. Las guías editables están en guias/README.md y la versión para lectura está en output/pdf/Guias-de-aprendizaje-estructuras-de-datos.pdf.
 
 | Rama | Reto | Solución |
 | ---- | ---- | -------- |
