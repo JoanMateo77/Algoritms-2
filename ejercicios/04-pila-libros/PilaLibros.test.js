@@ -18,3 +18,10 @@ test('la pila vacía y los datos inválidos se manejan explícitamente', () => {
   assert.equal(pila.pop(), null);
   assert.throws(() => pila.push({ nombre: 'Incompleto' }));
 });
+
+test('un campo con solo espacios no cuenta como dato', () => {
+  const pila = new PilaLibros();
+  assert.throws(() => pila.push({ nombre: '   ', isbn: '1', autor: 'A', editorial: 'E' }));
+  const libro = pila.push({ nombre: ' Ficciones ', isbn: '1', autor: 'Borges', editorial: 'Emecé', extra: 'x' });
+  assert.deepEqual(libro, { nombre: 'Ficciones', isbn: '1', autor: 'Borges', editorial: 'Emecé' });
+});

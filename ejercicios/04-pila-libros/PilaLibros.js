@@ -1,3 +1,9 @@
+const CAMPOS = ['nombre', 'isbn', 'autor', 'editorial'];
+
+function esTextoConContenido(valor) {
+  return typeof valor === 'string' && valor.trim() !== '';
+}
+
 class PilaLibros {
   constructor(libros = []) {
     this.elementos = [];
@@ -5,12 +11,10 @@ class PilaLibros {
   }
 
   push(libro) {
-    if (!libro || !['nombre', 'isbn', 'autor', 'editorial'].every(
-      (campo) => typeof libro[campo] === 'string' && libro[campo].trim()
-    )) {
+    if (!libro || !CAMPOS.every((campo) => esTextoConContenido(libro[campo]))) {
       throw new Error('El libro necesita nombre, ISBN, autor y editorial.');
     }
-    const nuevo = { ...libro };
+    const nuevo = Object.fromEntries(CAMPOS.map((campo) => [campo, libro[campo].trim()]));
     this.elementos.push(nuevo);
     return nuevo;
   }
