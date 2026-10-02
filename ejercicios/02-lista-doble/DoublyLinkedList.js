@@ -25,7 +25,9 @@ class DoublyLinkedList {
     return newNode;
   }
 
-  peek(value, current = this.head) {
+  peek(value) {
+    let current = this.head;
+
     while (current) {
       if (current.value === value) {
         return current;

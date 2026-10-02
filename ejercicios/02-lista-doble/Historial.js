@@ -50,19 +50,22 @@ class Historial {
   }
 
   listar() {
-    const paginas = this.paginas.toArray();
-
-    if (paginas.length === 0) {
+    if (this.paginas.isEmpty()) {
       return '(historial vacío)';
     }
 
-    return paginas
-      .map((pagina, indice) => {
-        const aqui = pagina === this.paginaActual() ? '>' : ' ';
-        const numero = String(indice + 1).padStart(2, ' ');
-        return `${aqui} ${numero}. ${pagina.titulo}\n       ${pagina.url}`;
-      })
-      .join('\n');
+    const filas = [];
+    let nodo = this.paginas.head;
+
+    while (nodo) {
+      const pagina = nodo.value;
+      const aqui = nodo === this.nodoActual ? '>' : ' ';
+      const numero = String(filas.length + 1).padStart(2, ' ');
+      filas.push(`${aqui} ${numero}. ${pagina.titulo}\n       ${pagina.url}`);
+      nodo = nodo.next;
+    }
+
+    return filas.join('\n');
   }
 }
 
