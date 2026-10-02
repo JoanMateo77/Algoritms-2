@@ -138,3 +138,15 @@ test('listar un historial vacío lo dice con palabras', () => {
 
   assert.strictEqual(historial.listar(), '(historial vacío)');
 });
+
+test('listar marca solo la visita actual aunque la página se repita', () => {
+  const uao = { url: 'https://www.uao.edu.co', titulo: 'UAO' };
+  const historial = new Historial();
+  historial.visitar(uao);
+  historial.visitar({ url: 'https://google.com', titulo: 'Google' });
+  historial.visitar(uao);
+
+  const marcadas = historial.listar().split('\n').filter((fila) => fila.startsWith('>'));
+  assert.strictEqual(marcadas.length, 1);
+  assert.ok(marcadas[0].includes(' 3. '));
+});
