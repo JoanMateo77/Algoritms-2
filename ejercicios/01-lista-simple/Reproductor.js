@@ -55,19 +55,22 @@ class Reproductor {
   }
 
   listar() {
-    const canciones = this.lista.toArray();
-
-    if (canciones.length === 0) {
+    if (this.lista.isEmpty()) {
       return '(playlist vacía)';
     }
 
-    return canciones
-      .map((cancion, indice) => {
-        const sonando = cancion === this.cancionActual() ? '>' : ' ';
-        const numero = String(indice + 1).padStart(2, ' ');
-        return `${sonando} ${numero}. ${cancion.titulo} - ${cancion.artista} (${cancion.duracion})`;
-      })
-      .join('\n');
+    const filas = [];
+    let nodo = this.lista.head;
+
+    while (nodo) {
+      const cancion = nodo.value;
+      const sonando = nodo === this.nodoActual ? '>' : ' ';
+      const numero = String(filas.length + 1).padStart(2, ' ');
+      filas.push(`${sonando} ${numero}. ${cancion.titulo} - ${cancion.artista} (${cancion.duracion})`);
+      nodo = nodo.next;
+    }
+
+    return filas.join('\n');
   }
 }
 
