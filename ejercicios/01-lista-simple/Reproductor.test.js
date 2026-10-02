@@ -105,3 +105,12 @@ test('listar una playlist vacía lo dice con palabras', () => {
 
   assert.strictEqual(reproductor.listar(), '(playlist vacía)');
 });
+
+test('listar marca solo el nodo que suena aunque la canción esté repetida', () => {
+  const cancion = { titulo: 'Uno', artista: 'A', duracion: '3:00' };
+  const reproductor = new Reproductor().cargar([cancion, cancion]);
+  reproductor.reproducir();
+
+  const marcadas = reproductor.listar().split('\n').filter((fila) => fila.startsWith('>'));
+  assert.strictEqual(marcadas.length, 1);
+});
