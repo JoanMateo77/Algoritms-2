@@ -76,6 +76,39 @@ class LinkedList {
     return eliminado;
   }
 
+  removeNode(nodo) {
+    if (!nodo || !this.head) {
+      return null;
+    }
+
+    if (this.head === nodo) {
+      this.head = nodo.next;
+
+      if (!this.head) {
+        this.tail = null;
+      }
+    } else {
+      let current = this.head;
+      while (current.next && current.next !== nodo) {
+        current = current.next;
+      }
+
+      if (!current.next) {
+        return null;
+      }
+
+      current.next = nodo.next;
+
+      if (this.tail === nodo) {
+        this.tail = current;
+      }
+    }
+
+    nodo.next = null;
+    this.length--;
+    return nodo;
+  }
+
   print() {
     let current = this.head;
     let result = '';

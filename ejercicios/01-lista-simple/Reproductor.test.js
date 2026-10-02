@@ -114,3 +114,16 @@ test('listar marca solo el nodo que suena aunque la canción esté repetida', ()
   const marcadas = reproductor.listar().split('\n').filter((fila) => fila.startsWith('>'));
   assert.strictEqual(marcadas.length, 1);
 });
+
+test('quitar un título repetido quita la copia que está sonando', () => {
+  const uno = { titulo: 'Uno', artista: 'A', duracion: '3:00' };
+  const dos = { titulo: 'Dos', artista: 'B', duracion: '3:00' };
+  const reproductor = new Reproductor().cargar([uno, dos, uno]);
+  reproductor.reproducir();
+  reproductor.siguiente();
+  reproductor.siguiente();
+
+  reproductor.quitar('Uno');
+  assert.deepStrictEqual(reproductor.lista.toArray().map((c) => c.titulo), ['Uno', 'Dos']);
+  assert.strictEqual(reproductor.cancionActual(), null);
+});
