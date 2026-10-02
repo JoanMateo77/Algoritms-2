@@ -92,17 +92,20 @@ class PlaylistRepetir {
   }
 
   listar() {
-    const canciones = this.lista.toArray();
-
-    if (canciones.length === 0) {
+    if (this.lista.isEmpty()) {
       return '(playlist vacía)';
     }
 
-    const filas = canciones.map((cancion, indice) => {
-      const sonando = cancion === this.cancionActual() ? '>' : ' ';
-      const numero = String(indice + 1).padStart(2, ' ');
-      return `${sonando} ${numero}. ${cancion.titulo} — ${cancion.artista}`;
-    });
+    const filas = [];
+    let nodo = this.lista.head;
+
+    do {
+      const cancion = nodo.value;
+      const sonando = nodo === this.nodoActual ? '>' : ' ';
+      const numero = String(filas.length + 1).padStart(2, ' ');
+      filas.push(`${sonando} ${numero}. ${cancion.titulo} — ${cancion.artista}`);
+      nodo = nodo.next;
+    } while (nodo !== this.lista.head);
 
     filas.push('   ... y vuelve a empezar');
 

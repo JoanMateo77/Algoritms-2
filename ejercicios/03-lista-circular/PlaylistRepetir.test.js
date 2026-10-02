@@ -115,3 +115,12 @@ test('listar avisa que la playlist se repite', () => {
 
   assert.ok(playlist.listar().includes('vuelve a empezar'));
 });
+
+test('listar marca solo el nodo que suena aunque la canción esté repetida', () => {
+  const cancion = { titulo: 'Uno', artista: 'A' };
+  const playlist = new PlaylistRepetir().cargar([cancion, cancion]);
+  playlist.reproducir();
+
+  const marcadas = playlist.listar().split('\n').filter((fila) => fila.startsWith('>'));
+  assert.strictEqual(marcadas.length, 1);
+});
