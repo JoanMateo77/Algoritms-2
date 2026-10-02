@@ -153,3 +153,26 @@ test('find busca usando una condición', () => {
   assert.strictEqual(encontrada.titulo, 'Yellow');
   assert.strictEqual(lista.find((c) => c.titulo === 'Nada'), null);
 });
+
+test('removeNode quita ese nodo exacto aunque haya valores repetidos', () => {
+  const lista = new LinkedList();
+  lista.append('A');
+  lista.append('B');
+  const segundaA = lista.append('A');
+
+  assert.strictEqual(lista.removeNode(segundaA), segundaA);
+  assert.deepStrictEqual(lista.toArray(), ['A', 'B']);
+  assert.strictEqual(lista.tail.value, 'B');
+  assert.strictEqual(lista.size(), 2);
+  assert.strictEqual(lista.removeNode(segundaA), null);
+});
+
+test('removeNode del unico nodo deja la lista vacía', () => {
+  const lista = new LinkedList();
+  const nodo = lista.append('A');
+
+  lista.removeNode(nodo);
+  assert.strictEqual(lista.head, null);
+  assert.strictEqual(lista.tail, null);
+  assert.strictEqual(lista.isEmpty(), true);
+});

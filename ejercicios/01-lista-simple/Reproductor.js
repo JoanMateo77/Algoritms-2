@@ -35,19 +35,33 @@ class Reproductor {
   }
 
   quitar(titulo) {
-    const cancion = this.lista.find((c) => c.titulo === titulo);
+    const nodo = this.buscarNodo(titulo);
 
-    if (!cancion) {
+    if (!nodo) {
       return false;
     }
 
     // si quitamos la que esta sonando, primero movemos el cursor
-    if (this.nodoActual && this.nodoActual.value === cancion) {
-      this.nodoActual = this.nodoActual.next;
+    if (nodo === this.nodoActual) {
+      this.nodoActual = nodo.next;
     }
 
-    this.lista.remove(cancion);
+    this.lista.removeNode(nodo);
     return true;
+  }
+
+  // con titulos repetidos se prefiere la cancion que esta sonando
+  buscarNodo(titulo) {
+    if (this.nodoActual && this.nodoActual.value.titulo === titulo) {
+      return this.nodoActual;
+    }
+
+    let nodo = this.lista.head;
+    while (nodo && nodo.value.titulo !== titulo) {
+      nodo = nodo.next;
+    }
+
+    return nodo;
   }
 
   cuantas() {
