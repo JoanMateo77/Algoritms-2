@@ -1,7 +1,6 @@
 class NodoMenu {
   constructor({ titulo, enlace, componente }) {
-    if (!titulo || typeof titulo !== 'string' || !enlace || typeof enlace !== 'string' ||
-      !componente || typeof componente !== 'string') {
+    if (![titulo, enlace, componente].every((dato) => typeof dato === 'string' && dato !== '')) {
       throw new Error('Cada menú necesita título, enlace y componente.');
     }
     this.titulo = titulo;
@@ -21,13 +20,7 @@ class ArbolMenus {
   constructor(datosRaiz) { this.raiz = new NodoMenu(datosRaiz); }
 
   buscar(enlace) {
-    const pendientes = [this.raiz];
-    while (pendientes.length) {
-      const actual = pendientes.shift();
-      if (actual.enlace === enlace) return actual;
-      pendientes.push(...actual.hijos);
-    }
-    return null;
+    return this.bfs().find((nodo) => nodo.enlace === enlace) ?? null;
   }
 
   dfs(nodo = this.raiz, resultado = []) {
