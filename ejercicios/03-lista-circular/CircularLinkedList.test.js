@@ -147,3 +147,21 @@ test('toArray da exactamente una vuelta, no infinitas', () => {
 
   assert.strictEqual(lista.toArray().length, 3);
 });
+
+test('removeNode quita ese nodo exacto y mantiene el círculo', () => {
+  const lista = new CircularLinkedList();
+  const primeraA = lista.append('A');
+  lista.append('B');
+  const segundaA = lista.append('A');
+
+  assert.strictEqual(lista.removeNode(segundaA), segundaA);
+  assert.deepStrictEqual(lista.toArray(), ['A', 'B']);
+  assert.strictEqual(lista.tail.value, 'B');
+  assert.strictEqual(lista.tail.next, lista.head);
+
+  lista.removeNode(primeraA);
+  assert.strictEqual(lista.head.value, 'B');
+  assert.strictEqual(lista.head.next, lista.head);
+  assert.strictEqual(lista.removeNode(primeraA), null);
+  assert.strictEqual(lista.size(), 1);
+});
