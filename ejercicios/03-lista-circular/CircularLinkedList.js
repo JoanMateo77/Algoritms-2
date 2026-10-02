@@ -96,6 +96,48 @@ class CircularLinkedList {
     return null;
   }
 
+  removeNode(nodo) {
+    if (!nodo || !this.head) {
+      return null;
+    }
+
+    if (this.head === this.tail) {
+      if (this.head !== nodo) {
+        return null;
+      }
+
+      this.head = null;
+      this.tail = null;
+      nodo.next = null;
+      this.length--;
+      return nodo;
+    }
+
+    let anterior = this.tail;
+
+    do {
+      if (anterior.next === nodo) {
+        anterior.next = nodo.next;
+
+        if (nodo === this.head) {
+          this.head = nodo.next;
+        }
+
+        if (nodo === this.tail) {
+          this.tail = anterior;
+        }
+
+        nodo.next = null;
+        this.length--;
+        return nodo;
+      }
+
+      anterior = anterior.next;
+    } while (anterior !== this.tail);
+
+    return null;
+  }
+
   print() {
     if (!this.head) {
       console.log('(vacía)');
