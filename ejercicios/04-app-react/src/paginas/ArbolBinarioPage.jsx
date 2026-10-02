@@ -19,11 +19,15 @@ export default function ArbolBinarioPage() {
 
   function insertar(evento) {
     evento.preventDefault();
-    const valor = Number(new FormData(evento.currentTarget).get('valor'));
-    const agregado = arbol.current.insertar(valor);
-    setResultado(agregado ? 'Valor insertado.' : 'Ese valor ya existe.');
-    setVersion(version + 1);
-    evento.currentTarget.reset();
+    const formulario = evento.currentTarget;
+    try {
+      const agregado = arbol.current.insertar(Number(new FormData(formulario).get('valor')));
+      setResultado(agregado ? 'Valor insertado.' : 'Ese valor ya existe.');
+      setVersion((anterior) => anterior + 1);
+      formulario.reset();
+    } catch (error) {
+      setResultado(error.message);
+    }
   }
 
   function buscar(evento) {

@@ -10,11 +10,15 @@ export default function ColaCajeroPage() {
 
   function agregar(evento) {
     evento.preventDefault();
-    const datos = new FormData(evento.currentTarget);
-    const persona = cola.current.enqueue(Object.fromEntries(datos));
-    setVista(cola.current.toArray());
-    setMensaje(`${persona.nombre} se agregó al final de la cola.`);
-    evento.currentTarget.reset();
+    const formulario = evento.currentTarget;
+    try {
+      const persona = cola.current.enqueue(Object.fromEntries(new FormData(formulario)));
+      setVista(cola.current.toArray());
+      setMensaje(`${persona.nombre} se agregó al final de la cola.`);
+      formulario.reset();
+    } catch (error) {
+      setMensaje(error.message);
+    }
   }
 
   function atender() {

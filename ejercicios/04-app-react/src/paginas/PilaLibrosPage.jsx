@@ -10,11 +10,15 @@ export default function PilaLibrosPage() {
 
   function agregar(evento) {
     evento.preventDefault();
-    const datos = new FormData(evento.currentTarget);
-    const libro = pila.current.push(Object.fromEntries(datos));
-    setVista(pila.current.toArray());
-    setMensaje(`Agregaste ${libro.nombre} sobre la pila.`);
-    evento.currentTarget.reset();
+    const formulario = evento.currentTarget;
+    try {
+      const libro = pila.current.push(Object.fromEntries(new FormData(formulario)));
+      setVista(pila.current.toArray());
+      setMensaje(`Agregaste ${libro.nombre} sobre la pila.`);
+      formulario.reset();
+    } catch (error) {
+      setMensaje(error.message);
+    }
   }
 
   function retirar() {

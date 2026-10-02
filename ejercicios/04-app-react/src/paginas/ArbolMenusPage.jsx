@@ -22,7 +22,6 @@ export default function ArbolMenusPage() {
   const arbol = useMemo(() => crearMenus(), []);
   const [activo, setActivo] = useState('/');
   const nodo = arbol.buscar(activo);
-  const Componente = () => <p>{contenidos[nodo.componente]}</p>;
   return <div className="pagina">
     <header className="pagina-cabecera"><h1>Reto 09 · Menú N-ario</h1>
       <p className="pagina-subtitulo">Un nodo puede tener varios hijos. La barra lateral se construye recorriendo el árbol.</p></header>
@@ -30,7 +29,7 @@ export default function ArbolMenusPage() {
       <nav aria-label="Menú de ejemplo" className="menu-arbol"><h2>Menús y submenús</h2>
         <ul><Rama nodo={arbol.raiz} seleccionar={setActivo} activo={activo} /></ul></nav>
       <article><h2>{nodo.titulo}</h2><p>Enlace: <code>{nodo.enlace}</code></p>
-        <p>Componente: <code>{nodo.componente}</code></p><Componente /></article>
+        <p>Componente: <code>{nodo.componente}</code></p><p>{contenidos[nodo.componente]}</p></article>
     </section>
     <section><h2>Recorridos del árbol</h2>
       <p><strong>DFS:</strong> {arbol.dfs().map((item) => item.titulo).join(' → ')}</p>
