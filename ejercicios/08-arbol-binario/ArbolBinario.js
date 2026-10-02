@@ -15,13 +15,17 @@ class ArbolBinario {
 
   insertar(valor) {
     if (!Number.isFinite(valor)) throw new Error('El valor debe ser un número finito.');
-    const nuevo = new NodoBinario(valor);
-    if (!this.raiz) { this.raiz = nuevo; return true; }
+    if (!this.raiz) {
+      this.raiz = new NodoBinario(valor);
+      return true;
+    }
     let actual = this.raiz;
-    while (actual) {
-      if (valor === actual.valor) return false;
+    while (valor !== actual.valor) {
       const lado = valor < actual.valor ? 'izquierda' : 'derecha';
-      if (!actual[lado]) { actual[lado] = nuevo; return true; }
+      if (!actual[lado]) {
+        actual[lado] = new NodoBinario(valor);
+        return true;
+      }
       actual = actual[lado];
     }
     return false;
@@ -36,16 +40,39 @@ class ArbolBinario {
     return false;
   }
 
-  preorden(nodo = this.raiz, resultado = []) {
-    if (nodo) { resultado.push(nodo.valor); this.preorden(nodo.izquierda, resultado); this.preorden(nodo.derecha, resultado); }
+  preorden() {
+    const resultado = [];
+    const visitar = (nodo) => {
+      if (!nodo) return;
+      resultado.push(nodo.valor);
+      visitar(nodo.izquierda);
+      visitar(nodo.derecha);
+    };
+    visitar(this.raiz);
     return resultado;
   }
-  inorden(nodo = this.raiz, resultado = []) {
-    if (nodo) { this.inorden(nodo.izquierda, resultado); resultado.push(nodo.valor); this.inorden(nodo.derecha, resultado); }
+
+  inorden() {
+    const resultado = [];
+    const visitar = (nodo) => {
+      if (!nodo) return;
+      visitar(nodo.izquierda);
+      resultado.push(nodo.valor);
+      visitar(nodo.derecha);
+    };
+    visitar(this.raiz);
     return resultado;
   }
-  postorden(nodo = this.raiz, resultado = []) {
-    if (nodo) { this.postorden(nodo.izquierda, resultado); this.postorden(nodo.derecha, resultado); resultado.push(nodo.valor); }
+
+  postorden() {
+    const resultado = [];
+    const visitar = (nodo) => {
+      if (!nodo) return;
+      visitar(nodo.izquierda);
+      visitar(nodo.derecha);
+      resultado.push(nodo.valor);
+    };
+    visitar(this.raiz);
     return resultado;
   }
 
