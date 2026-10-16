@@ -1,0 +1,10 @@
+const MotorBusqueda = require('./MotorBusqueda');
+const motor = new MotorBusqueda();
+motor.insert('air max', 90);
+motor.insert('air force', 95);
+motor.insert('air jordan', 85);
+motor.insert('adidas boost', 80);
+console.log('searchTopK("air", 2):', motor.searchTopK('air', 2));
+console.log('searchTopK("a", 3):', motor.searchTopK('a', 3));
+console.log('¿Está "air max" en el trie?', motor.trie.search('air max'));
+console.log('¿Está "air" en el trie?', motor.trie.search('air'));
