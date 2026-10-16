@@ -7,6 +7,7 @@ import PilaLibrosPage from './paginas/PilaLibrosPage';
 import ColaCajeroPage from './paginas/ColaCajeroPage';
 import ArbolBinarioPage from './paginas/ArbolBinarioPage';
 import ArbolMenusPage from './paginas/ArbolMenusPage';
+import GrafoAmigosPage from './paginas/GrafoAmigosPage';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <NavLink to="/cola-cajero">Cola</NavLink>
         <NavLink to="/arbol-binario">Árbol binario</NavLink>
         <NavLink to="/arbol-menus">Menú N-ario</NavLink>
+        <NavLink to="/grafo-amigos">Grafo</NavLink>
       </nav>
 
       <main>
@@ -35,6 +37,7 @@ export default function App() {
           <Route path="/cola-cajero" element={<ColaCajeroPage />} />
           <Route path="/arbol-binario" element={<ArbolBinarioPage />} />
           <Route path="/arbol-menus" element={<ArbolMenusPage />} />
+          <Route path="/grafo-amigos" element={<GrafoAmigosPage />} />
         </Routes>
       </main>
 

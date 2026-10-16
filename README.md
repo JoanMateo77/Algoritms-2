@@ -57,7 +57,7 @@ comprobar que todo sigue funcionando. Está en `.github/workflows/pruebas.yml`.
    Use the implemented lists in each page. Navigate through the lists by using
    buttons inside the pages.
 
-## Retos 04, 05, 08 y 09
+## Retos 04, 05, 08, 09 y 10
 
 Las diapositivas y el PDF de Git están en material-clase. Cada reto tiene datos
 de ejemplo, demo, pruebas y página React. Las guías editables están en guias/README.md y la versión para lectura está en output/pdf/Guias-de-aprendizaje-estructuras-de-datos.pdf.
@@ -68,6 +68,7 @@ de ejemplo, demo, pruebas y página React. Las guías editables están en guias/
 | 05-cola-cajero | 05, cola del cajero | ejercicios/05-cola-cajero |
 | 08-arbol-binario | 08, árbol binario | ejercicios/08-arbol-binario |
 | 09-arbol-nario | 09, árbol N-ario | ejercicios/09-arbol-nario |
+| 10-grafo-amigos | 10, grafo de amigos y ciudades | ejercicios/10-grafo-amigos |
 
 Para ver los ejemplos en consola:
 
@@ -75,7 +76,8 @@ Para ver los ejemplos en consola:
     npm run demo:cola
     npm run demo:arbol
     npm run demo:menus
+    npm run demo:grafo
 
 Después inicia la app React como se indica arriba y abre las páginas Pila,
-Cola, Árbol binario y Menú N-ario. Cada rama contiene su ejercicio. Main
-reúne los cuatro retos y las páginas.
+Cola, Árbol binario, Menú N-ario y Grafo. Cada rama contiene su ejercicio. Main
+reúne los retos y las páginas.

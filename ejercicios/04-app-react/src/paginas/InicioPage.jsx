@@ -48,6 +48,7 @@ export default function InicioPage() {
           <Link to="/cola-cajero" className="tarjeta"><span className="tarjeta-numero">05</span><h3>Cola del cajero</h3><p>Atender personas con FIFO.</p></Link>
           <Link to="/arbol-binario" className="tarjeta"><span className="tarjeta-numero">08</span><h3>Árbol binario</h3><p>Insertar, buscar y comparar recorridos.</p></Link>
           <Link to="/arbol-menus" className="tarjeta"><span className="tarjeta-numero">09</span><h3>Menú N-ario</h3><p>Renderizar menús y submenús.</p></Link>
+          <Link to="/grafo-amigos" className="tarjeta"><span className="tarjeta-numero">10</span><h3>Grafo de amigos</h3><p>Personas, ciudades y quién vive dónde.</p></Link>
         </div>
       </section>
 
