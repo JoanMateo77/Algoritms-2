@@ -1,4 +1,6 @@
 const COMPACTAR_DESDE = 32;
+const HORA_APERTURA = 8;
+const SEGUNDOS_DE_ATENCION = 8 * 60 * 60;
 
 function datosValidos(persona) {
   return Boolean(persona) &&
@@ -6,11 +8,19 @@ function datosValidos(persona) {
     Number.isFinite(Number(persona.monto)) && Number(persona.monto) > 0;
 }
 
+// un momento al azar de hoy, entre las 8:00 y las 16:00
+function llegadaAleatoria() {
+  const apertura = new Date();
+  apertura.setHours(HORA_APERTURA, 0, 0, 0);
+  const segundos = Math.floor(Math.random() * SEGUNDOS_DE_ATENCION);
+  return new Date(apertura.getTime() + segundos * 1000);
+}
+
 class ColaCajero {
-  constructor(personas = [], reloj = () => new Date()) {
+  constructor(personas = [], generarLlegada = llegadaAleatoria) {
     this.elementos = [];
     this.inicio = 0;
-    this.reloj = reloj;
+    this.generarLlegada = generarLlegada;
     personas.forEach((persona) => this.enqueue(persona));
   }
 
@@ -18,10 +28,12 @@ class ColaCajero {
     if (!datosValidos(persona)) {
       throw new Error('La persona necesita nombre y monto positivo.');
     }
-    const llegada = persona.llegada ? new Date(persona.llegada) : this.reloj();
-    if (Number.isNaN(llegada.getTime())) throw new Error('Fecha de llegada inválida.');
+    const llegada = this.generarLlegada();
     const nuevo = { nombre: persona.nombre.trim(), monto: Number(persona.monto), llegada: llegada.toISOString() };
-    this.elementos.push(nuevo);
+    // la fecha es aleatoria, así que se ubica detrás de quienes llegaron antes o a la misma hora
+    let posicion = this.elementos.length;
+    while (posicion > this.inicio && this.elementos[posicion - 1].llegada > nuevo.llegada) posicion--;
+    this.elementos.splice(posicion, 0, nuevo);
     return nuevo;
   }
 

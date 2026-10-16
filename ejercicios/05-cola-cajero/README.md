@@ -1,11 +1,12 @@
 # Reto 05: cola de personas en un cajero
 
-Fuente: `material-clase/Clase 06 - Pilas y Colas (1).pptx`, diapositiva 13.
+Fuente: `Clase 06 - Pilas y Colas.pptx`, diapositiva 13.
 
-Cada persona tiene nombre, monto de retiro y fecha de llegada asignada por el
-sistema. Los datos de ejemplo tienen fechas reproducibles. La cola conserva el
-orden de ingreso (FIFO); por eso la pantalla muestra las personas en orden de
-llegada. Para personas nuevas, la fecha se crea al pulsar **Agregar**.
+Cada persona tiene nombre y monto de retiro. Al agregarla, el sistema le asigna
+una fecha de llegada aleatoria (hoy, entre las 8:00 y las 16:00) y la ubica en la
+cola según esa fecha: quien llegó primero es atendido primero (FIFO por hora de
+llegada). Si dos personas llegan a la misma hora, se respeta el orden de ingreso.
+
+Las pruebas inyectan el generador de fechas para que el resultado sea fijo.
 
 Ejecuta `npm run demo:cola` desde la raíz o abre la página **Cola** en la app.
-La guía de estudio está en `guias/01-pilas-y-colas.md`.
