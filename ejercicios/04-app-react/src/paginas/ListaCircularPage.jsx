@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import CircularLinkedList from '../estructuras/CircularLinkedList';
-import { CANCIONES } from '../datos/canciones';
+import CircularLinkedList from '../../../03-lista-circular/CircularLinkedList.js';
+import CANCIONES from '../../../03-lista-circular/canciones.js';
 import DiagramaNodos from '../componentes/DiagramaNodos';
 import Explicacion from '../componentes/Explicacion';
 
@@ -8,7 +8,7 @@ export default function ListaCircularPage() {
   const listaRef = useRef(null);
   if (listaRef.current === null) {
     const lista = new CircularLinkedList();
-    CANCIONES.slice(0, 5).forEach((cancion) => lista.append(cancion));
+    CANCIONES.forEach((cancion) => lista.append(cancion));
     listaRef.current = lista;
   }
 
@@ -69,9 +69,10 @@ export default function ListaCircularPage() {
   function quitarActual() {
     if (!nodoActualRef.current || listaRef.current.size() <= 1) return;
 
-    const cancion = nodoActualRef.current.value;
-    nodoActualRef.current = nodoActualRef.current.next;
-    listaRef.current.remove(cancion);
+    const nodo = nodoActualRef.current;
+    const cancion = nodo.value;
+    nodoActualRef.current = nodo.next;
+    listaRef.current.removeNode(nodo);
     actualizarVista();
 
     setUltimaAccion({
@@ -85,7 +86,7 @@ export default function ListaCircularPage() {
 
   function reiniciar() {
     const lista = new CircularLinkedList();
-    CANCIONES.slice(0, 5).forEach((cancion) => lista.append(cancion));
+    CANCIONES.forEach((cancion) => lista.append(cancion));
     listaRef.current = lista;
     nodoActualRef.current = lista.head;
     setReproducidas(0);

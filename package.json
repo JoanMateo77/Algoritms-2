@@ -1,7 +1,7 @@
 {
-  "name": "reto-03-listas",
+  "name": "estructuras-de-datos-2",
   "version": "1.0.0",
-  "description": "Estructuras de Datos II - Reto 03: Listas Enlazadas. Un ejercicio por rama.",
+  "description": "Estructuras de Datos II - retos de clase. Un ejercicio por rama.",
   "main": "index.js",
   "scripts": {
     "test": "node --test",
@@ -12,7 +12,8 @@
     "demo:cola": "node ejercicios/05-cola-cajero/demo.js",
     "demo:arbol": "node ejercicios/08-arbol-binario/demo.js",
     "demo:menus": "node ejercicios/09-arbol-nario/demo.js",
-    "demo:grafo": "node ejercicios/10-grafo-amigos/demo.js"
+    "demo:grafo": "node ejercicios/10-grafo-amigos/demo.js",
+    "demo:busqueda": "node ejercicios/11-busqueda-productos/demo.js"
   },
   "keywords": [
     "estructuras-de-datos",

@@ -2,15 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { build } from 'esbuild';
 
-const retosCommonJS = /ejercicios\/(04-pila-libros|05-cola-cajero|08-arbol-binario|09-arbol-nario|10-grafo-amigos)\//;
+// los retos de las otras carpetas de ejercicios/ están escritos con require y module.exports
+const retosCommonJS = /ejercicios\/(?!04-app-react\/)[^/]+\/[^/]+\.js$/;
 
-// en desarrollo vite sirve los archivos tal cual, y los retos usan require; se empaquetan como ESM al pedirlos
+// en desarrollo vite sirve los archivos tal cual; por eso cada reto se empaqueta como ESM al pedirlo
 function cargarRetos() {
   return {
     name: 'cargar-retos-commonjs',
     apply: 'serve',
     async load(id) {
-      if (!retosCommonJS.test(id) || !id.endsWith('.js')) return null;
+      if (!retosCommonJS.test(id)) return null;
       const { outputFiles } = await build({ entryPoints: [id], bundle: true, format: 'esm', write: false });
       return outputFiles[0].text;
     },

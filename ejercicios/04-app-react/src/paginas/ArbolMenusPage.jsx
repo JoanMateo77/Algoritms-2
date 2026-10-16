@@ -1,39 +1,130 @@
 import { useMemo, useState } from 'react';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import crearMenus from '../../../09-arbol-nario/menus.js';
 
-const contenidos = {
-  Inicio: 'Bienvenido al menú de estudio.',
-  Estudiar: 'Elige un tema para leer primero.',
-  PilasColas: 'Las pilas siguen LIFO y las colas siguen FIFO.',
-  Arboles: 'Los árboles conectan nodos desde una raíz.',
-  Practicar: 'Escribe los algoritmos sin mirar la solución.',
-  Recorridos: 'Compara DFS con BFS en el ejemplo.',
-};
+const BASE = '/arbol-menus';
+const rutaDe = (enlace) => (enlace === '/' ? BASE : BASE + enlace);
 
-function Rama({ nodo, seleccionar, activo }) {
-  return <li><button className={activo === nodo.enlace ? 'seleccionado' : 'boton-secundario'}
-      onClick={() => seleccionar(nodo.enlace)}>{nodo.titulo}</button>
-    {nodo.hijos.length > 0 && <ul>{nodo.hijos.map((hijo) =>
-      <Rama key={hijo.enlace} nodo={hijo} seleccionar={seleccionar} activo={activo} />)}</ul>}
-  </li>;
+function Inicio() {
+  return (
+    <article data-componente="Inicio">
+      <h2>Inicio</h2>
+      <p>Bienvenido al menú de estudio. Cada opción de la barra lateral es un nodo del árbol.</p>
+    </article>
+  );
+}
+
+function Estudiar() {
+  return (
+    <article data-componente="Estudiar">
+      <h2>Estudiar</h2>
+      <p>Este nodo tiene dos hijos: elige un tema para leer primero.</p>
+    </article>
+  );
+}
+
+function PilasColas() {
+  return (
+    <article data-componente="PilasColas">
+      <h2>Pilas y colas</h2>
+      <p>La pila saca primero lo último que entró (LIFO); la cola, lo primero (FIFO).</p>
+    </article>
+  );
+}
+
+function Arboles() {
+  return (
+    <article data-componente="Arboles">
+      <h2>Árboles</h2>
+      <p>Un árbol N-ario parte de una raíz y cada nodo puede tener cualquier número de hijos.</p>
+    </article>
+  );
+}
+
+function Practicar() {
+  return (
+    <article data-componente="Practicar">
+      <h2>Practicar</h2>
+      <p>Escribe los algoritmos sin mirar la solución y compáralos después.</p>
+    </article>
+  );
+}
+
+function Recorridos() {
+  return (
+    <article data-componente="Recorridos">
+      <h2>Recorridos</h2>
+      <p>DFS baja por una rama hasta el fondo antes de pasar a la siguiente; BFS va nivel por nivel.</p>
+    </article>
+  );
+}
+
+const componentes = { Inicio, Estudiar, PilasColas, Arboles, Practicar, Recorridos };
+
+function Rama({ nodo }) {
+  const [abierto, setAbierto] = useState(true);
+  const tieneHijos = nodo.hijos.length > 0;
+
+  return (
+    <li>
+      <div className="menu-arbol-fila">
+        <NavLink to={rutaDe(nodo.enlace)} end>{nodo.titulo}</NavLink>
+        {tieneHijos && (
+          <button
+            type="button"
+            className="boton-secundario"
+            aria-expanded={abierto}
+            aria-label={`${abierto ? 'Cerrar' : 'Abrir'} ${nodo.titulo}`}
+            onClick={() => setAbierto(!abierto)}
+          >
+            {abierto ? '▴' : '▾'}
+          </button>
+        )}
+      </div>
+      {tieneHijos && abierto && (
+        <ul>
+          {nodo.hijos.map((hijo) => <Rama key={hijo.enlace} nodo={hijo} />)}
+        </ul>
+      )}
+    </li>
+  );
 }
 
 export default function ArbolMenusPage() {
   const arbol = useMemo(() => crearMenus(), []);
-  const [activo, setActivo] = useState('/');
-  const nodo = arbol.buscar(activo);
-  return <div className="pagina">
-    <header className="pagina-cabecera"><h1>Reto 09 · Menú N-ario</h1>
-      <p className="pagina-subtitulo">Un nodo puede tener varios hijos. La barra lateral se construye recorriendo el árbol.</p></header>
-    <section className="dos-columnas">
-      <nav aria-label="Menú de ejemplo" className="menu-arbol"><h2>Menús y submenús</h2>
-        <ul><Rama nodo={arbol.raiz} seleccionar={setActivo} activo={activo} /></ul></nav>
-      <article><h2>{nodo.titulo}</h2><p>Enlace: <code>{nodo.enlace}</code></p>
-        <p>Componente: <code>{nodo.componente}</code></p><p>{contenidos[nodo.componente]}</p></article>
-    </section>
-    <section><h2>Recorridos del árbol</h2>
-      <p><strong>DFS:</strong> {arbol.dfs().map((item) => item.titulo).join(' → ')}</p>
-      <p><strong>BFS:</strong> {arbol.bfs().map((item) => item.titulo).join(' → ')}</p>
-    </section>
-  </div>;
+
+  return (
+    <div className="pagina">
+      <header className="pagina-cabecera">
+        <h1>Reto 09 · Menú N-ario</h1>
+        <p className="pagina-subtitulo">
+          La barra lateral se dibuja recorriendo el árbol. Cada menú tiene título, enlace y componente.
+        </p>
+      </header>
+
+      <section className="dos-columnas">
+        <nav aria-label="Menú de ejemplo" className="menu-arbol">
+          <ul>
+            <Rama nodo={arbol.raiz} />
+          </ul>
+        </nav>
+
+        <Routes>
+          {arbol.dfs().map((nodo) => {
+            const Componente = componentes[nodo.componente];
+            return nodo.enlace === '/'
+              ? <Route key={nodo.enlace} index element={<Componente />} />
+              : <Route key={nodo.enlace} path={nodo.enlace.slice(1)} element={<Componente />} />;
+          })}
+          <Route path="*" element={<p>Ese menú no existe.</p>} />
+        </Routes>
+      </section>
+
+      <section>
+        <h2>Recorridos del árbol</h2>
+        <p><strong>DFS:</strong> {arbol.dfs().map((nodo) => nodo.titulo).join(' → ')}</p>
+        <p><strong>BFS:</strong> {arbol.bfs().map((nodo) => nodo.titulo).join(' → ')}</p>
+      </section>
+    </div>
+  );
 }

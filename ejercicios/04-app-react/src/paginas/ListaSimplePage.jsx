@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import LinkedList from '../estructuras/LinkedList';
-import { CANCIONES } from '../datos/canciones';
+import LinkedList from '../../../01-lista-simple/LinkedList.js';
+import CANCIONES from '../../../01-lista-simple/canciones.js';
 import DiagramaNodos from '../componentes/DiagramaNodos';
 import Explicacion from '../componentes/Explicacion';
 
@@ -88,9 +88,10 @@ export default function ListaSimplePage() {
   function quitarActual() {
     if (!nodoActualRef.current) return;
 
-    const cancion = nodoActualRef.current.value;
-    nodoActualRef.current = nodoActualRef.current.next;
-    listaRef.current.remove(cancion);
+    const nodo = nodoActualRef.current;
+    const cancion = nodo.value;
+    nodoActualRef.current = nodo.next;
+    listaRef.current.removeNode(nodo);
     actualizarVista();
 
     setUltimaAccion({

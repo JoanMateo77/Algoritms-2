@@ -11,6 +11,8 @@ const configuracion = {
   link: { color: '#c2ced6', highlightColor: '#14293a' },
 };
 
+const opcion = (nodo) => <option key={nodo.id}>{nodo.nombre}</option>;
+
 function aspecto(nodo, ciudadSeleccionada) {
   const destacado = nodo.nombre === ciudadSeleccionada || nodo.ciudad === ciudadSeleccionada;
   return {
@@ -28,8 +30,8 @@ export default function GrafoAmigosPage() {
   const [ciudad, setCiudad] = useState('Cali');
   const [mensaje, setMensaje] = useState('Las ciudades son cuadrados rojos y las personas círculos azules.');
 
-  const ciudades = grafo.current.ciudades();
-  const personas = grafo.current.personas();
+  const opcionesCiudades = grafo.current.ciudades().map(opcion);
+  const opcionesPersonas = grafo.current.personas().map(opcion);
   const residentes = grafo.current.personasEn(ciudad);
   const { nodes, links } = grafo.current.paraD3();
   const datos = { nodes: nodes.map((nodo) => aspecto(nodo, ciudad)), links };
@@ -63,6 +65,10 @@ export default function GrafoAmigosPage() {
     return nueva ? `${a} y ${b} ahora son amigos.` : `${a} y ${b} ya eran amigos.`;
   });
 
+  function nombresDeAmigos(persona) {
+    return grafo.current.amigosDe(persona.nombre).map((amigo) => amigo.nombre).join(', ');
+  }
+
   function elegirCiudad(nombre) {
     setCiudad(nombre);
     console.log(`Viven en ${nombre}:`, grafo.current.imprimirPersonasEn(nombre));
@@ -82,15 +88,13 @@ export default function GrafoAmigosPage() {
         <div>
           <h2>Personas que viven en</h2>
           <select value={ciudad} onChange={(evento) => elegirCiudad(evento.target.value)}>
-            {ciudades.map((opcion) => (
-              <option key={opcion.id}>{opcion.nombre}</option>
-            ))}
+            {opcionesCiudades}
           </select>
           <ol className="lista-datos">
             {residentes.map((persona) => (
               <li key={persona.id}>
                 <strong>{persona.nombre}</strong>
-                <small>{persona.edad} años · amigos: {grafo.current.amigosDe(persona.nombre).map((amigo) => amigo.nombre).join(', ') || 'ninguno'}</small>
+                <small>{persona.edad} años · amigos: {nombresDeAmigos(persona) || 'ninguno'}</small>
               </li>
             ))}
           </ol>
@@ -103,18 +107,23 @@ export default function GrafoAmigosPage() {
             <h2>Nueva persona</h2>
             <label>Nombre<input name="nombre" required /></label>
             <label>Edad<input name="edad" type="number" min="1" step="1" required /></label>
-            <label>Ciudad
-              <select name="ciudad">
-                {ciudades.map((opcion) => <option key={opcion.id}>{opcion.nombre}</option>)}
-              </select>
+            <label>
+              Ciudad
+              <select name="ciudad">{opcionesCiudades}</select>
             </label>
             <button>Agregar persona</button>
           </form>
 
           <form className="formulario" onSubmit={agregarAmistad}>
             <h2>Nueva amistad</h2>
-            <label>Persona<select name="a">{personas.map((p) => <option key={p.id}>{p.nombre}</option>)}</select></label>
-            <label>Amigo<select name="b">{personas.map((p) => <option key={p.id}>{p.nombre}</option>)}</select></label>
+            <label>
+              Persona
+              <select name="a">{opcionesPersonas}</select>
+            </label>
+            <label>
+              Amigo
+              <select name="b">{opcionesPersonas}</select>
+            </label>
             <button>Conectar</button>
           </form>
 

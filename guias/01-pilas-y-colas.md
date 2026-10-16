@@ -17,10 +17,11 @@ correcta es C para la pila y A para la cola.
 Reto 04: cada libro necesita nombre, ISBN, autor y editorial. Los datos de
 ejemplo están en ejercicios/04-pila-libros/libros.js.
 
-Reto 05: cada persona necesita nombre, monto de retiro y fecha de llegada
-asignada por el sistema. Los ejemplos están en
-ejercicios/05-cola-cajero/personas.js. En la pantalla la fecha no se pide al
-usuario; la asigna el programa al entrar en la cola.
+Reto 05: cada persona necesita nombre, monto de retiro y una fecha de llegada
+aleatoria asignada por el sistema. Los ejemplos están en
+ejercicios/05-cola-cajero/personas.js y no traen fecha. En la pantalla la fecha
+no se pide al usuario; la sortea el programa al entrar en la cola, y la cola se
+muestra según esa fecha.
 
 Antes de seguir, crea en papel un libro y una persona con todos sus campos.
 
@@ -33,13 +34,14 @@ Pila:
 - size(), isEmpty() y print(): observan el estado.
 
 Cola:
-- enqueue(persona): valida y agrega al final con fecha de llegada.
+- enqueue(persona): valida, sortea la llegada y la ubica detrás de quienes
+  llegaron antes.
 - dequeue(): retira y devuelve quien está al frente; null si está vacía.
 - peek(): mira el frente sin retirar.
 - size(), isEmpty() y print(): observan el estado.
 
 Escribe primero pruebas mentales: push(A), push(B), pop() debe devolver B;
-enqueue(A), enqueue(B), dequeue() debe devolver A.
+enqueue(A) a las 10:00, enqueue(B) a las 9:00, dequeue() debe devolver B.
 
 ## 4. Pseudocódigo antes de JavaScript
 
@@ -49,7 +51,8 @@ Pila:
     peek: leer el último sin retirarlo
 
 Cola:
-    enqueue: agregar al final del arreglo
+    enqueue: recorrer desde el final hasta encontrar a alguien que llegó antes
+             o a la misma hora, e insertar ahí
     dequeue: leer el elemento en la posición inicio; aumentar inicio
     peek: leer el elemento en la posición inicio
 

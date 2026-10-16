@@ -1,41 +1,53 @@
-# Reto 03 - Listas Enlazadas
+# Retos de Estructuras de Datos II
 
-Estructuras de Datos II
 Universidad Autónoma de Occidente
 
 Cada ejercicio está en su propia rama y todas se mezclaron sobre `main`.
 
 ## Integrantes
 
-| Nombre | Rama | Correo |
-| ------ | ---- | ------ |
-| Joan Mateo Cardona Lorza | `01-lista-simple` a `04-app-react` | joan.cardona@uao.edu.co |
+| Nombre | Ramas | Correo |
+| ------ | ----- | ------ |
+| Joan Mateo Cardona Lorza | todas | joan.cardona@uao.edu.co |
 
 ## Ramas
 
-| Rama | Ejercicio | Estructura |
-| ---- | --------- | ---------- |
-| `01-lista-simple` | Reproductor de canciones en orden | Lista enlazada simple |
-| `02-lista-doble` | Historial del navegador | Lista doblemente enlazada |
-| `03-lista-circular` | Playlist en modo repetir | Lista circular |
-| `04-app-react` | Aplicación con una página por estructura | Las tres |
+| Rama | Challenge | Ejercicio | Estructura |
+| ---- | --------- | --------- | ---------- |
+| `01-lista-simple` | 03 | Reproductor de canciones en orden | Lista enlazada simple |
+| `02-lista-doble` | 03 | Historial del navegador | Lista doblemente enlazada |
+| `03-lista-circular` | 03 (extra) | Playlist en modo repetir | Lista circular |
+| `04-app-react` | 03 | Aplicación con una página por estructura | React |
+| `04-pila-libros` | 04 | Pila de libros | Pila |
+| `05-cola-cajero` | 05 | Cola de personas en un cajero | Cola |
+| `08-arbol-binario` | 08 | Recorridos y búsqueda | Árbol binario |
+| `09-arbol-nario` | 09 | Menú lateral con submenús | Árbol N-ario |
+| `10-grafo-amigos` | 10 | Amigos y ciudades | Grafo |
+| `11-busqueda-productos` | 11 | Buscador con top K | Trie y Heap |
 
 ```bash
-git switch 01-lista-simple
+git switch 10-grafo-amigos
 ```
 
 ## Ejecutar
 
-Necesita Node 18 o superior. No hay que instalar nada.
+Necesita Node 18 o superior. Las pruebas y los ejemplos de consola no necesitan
+instalar nada:
 
 ```bash
 npm test
-npm run demo:1
-npm run demo:2
-npm run demo:3
+npm run demo:1          # lista simple
+npm run demo:2          # lista doble
+npm run demo:3          # lista circular
+npm run demo:pila
+npm run demo:cola
+npm run demo:arbol
+npm run demo:menus
+npm run demo:grafo
+npm run demo:busqueda
 ```
 
-La aplicación de React sí usa dependencias:
+La aplicación de React tiene una página por reto:
 
 ```bash
 cd ejercicios/04-app-react
@@ -48,36 +60,8 @@ npm run dev
 En cada push a `main` se corren las pruebas y se compila la app de React, para
 comprobar que todo sigue funcionando. Está en `.github/workflows/pruebas.yml`.
 
-## Enunciado
+## Material
 
-1. Implement a linked list to play songs in order. Fill the list with mocked data.
-2. Implement a doubly linked list to navigate back and forward between visited
-   pages in the browser. Fill the list with fake data.
-3. Create a project in react with 2 new pages, linked and doubly linked lists.
-   Use the implemented lists in each page. Navigate through the lists by using
-   buttons inside the pages.
-
-## Retos 04, 05, 08, 09 y 10
-
-Las diapositivas y el PDF de Git están en material-clase. Cada reto tiene datos
-de ejemplo, demo, pruebas y página React. Las guías editables están en guias/README.md y la versión para lectura está en output/pdf/Guias-de-aprendizaje-estructuras-de-datos.pdf.
-
-| Rama | Reto | Solución |
-| ---- | ---- | -------- |
-| 04-pila-libros | 04, pila de libros | ejercicios/04-pila-libros |
-| 05-cola-cajero | 05, cola del cajero | ejercicios/05-cola-cajero |
-| 08-arbol-binario | 08, árbol binario | ejercicios/08-arbol-binario |
-| 09-arbol-nario | 09, árbol N-ario | ejercicios/09-arbol-nario |
-| 10-grafo-amigos | 10, grafo de amigos y ciudades | ejercicios/10-grafo-amigos |
-
-Para ver los ejemplos en consola:
-
-    npm run demo:pila
-    npm run demo:cola
-    npm run demo:arbol
-    npm run demo:menus
-    npm run demo:grafo
-
-Después inicia la app React como se indica arriba y abre las páginas Pila,
-Cola, Árbol binario, Menú N-ario y Grafo. Cada rama contiene su ejercicio. Main
-reúne los retos y las páginas.
+Las diapositivas y el PDF de Git están en `material-clase`. Las guías editables
+están en `guias/README.md` y la versión para lectura en
+`output/pdf/Guias-de-aprendizaje-estructuras-de-datos.pdf`.

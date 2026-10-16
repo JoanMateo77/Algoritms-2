@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import DoublyLinkedList from '../estructuras/DoublyLinkedList';
-import { PAGINAS } from '../datos/paginas';
+import DoublyLinkedList from '../../../02-lista-doble/DoublyLinkedList.js';
+import PAGINAS from '../../../02-lista-doble/paginas.js';
 import DiagramaNodos from '../componentes/DiagramaNodos';
 import Explicacion from '../componentes/Explicacion';
 

@@ -6,7 +6,7 @@ export default function PilaLibrosPage() {
   const pila = useRef(null);
   if (!pila.current) pila.current = new PilaLibros(libros);
   const [vista, setVista] = useState(() => pila.current.toArray());
-  const [mensaje, setMensaje] = useState('El libro del extremo derecho es el primero que sale.');
+  const [mensaje, setMensaje] = useState('El libro de arriba es el primero que sale.');
 
   function agregar(evento) {
     evento.preventDefault();
@@ -27,22 +27,40 @@ export default function PilaLibrosPage() {
     setMensaje(libro ? `Retiraste ${libro.nombre}: era el último que había entrado.` : 'La pila está vacía.');
   }
 
-  return <div className="pagina">
-    <header className="pagina-cabecera"><h1>Reto 04 · Pila de libros</h1>
-      <p className="pagina-subtitulo">Último en entrar, primero en salir (LIFO).</p></header>
-    <section className="dos-columnas">
-      <div><h2>Agregar libro</h2><form className="formulario" onSubmit={agregar}>
-        <label>Nombre<input name="nombre" required /></label>
-        <label>ISBN<input name="isbn" required /></label>
-        <label>Autor<input name="autor" required /></label>
-        <label>Editorial<input name="editorial" required /></label>
-        <button>Apilar libro</button>
-      </form></div>
-      <div><h2>Pila ({vista.length})</h2><p>{mensaje}</p>
-        <button onClick={retirar} disabled={!vista.length}>Retirar superior</button>
-        <ol className="lista-datos">{[...vista].reverse().map((libro, indice) => <li key={`${libro.isbn}-${indice}`}>
-          <strong>{libro.nombre}</strong><span>{libro.autor} · {libro.editorial}</span><small>ISBN {libro.isbn}{indice === 0 ? ' · Superior' : ''}</small>
-        </li>)}</ol></div>
-    </section>
-  </div>;
+  return (
+    <div className="pagina">
+      <header className="pagina-cabecera">
+        <h1>Reto 04 · Pila de libros</h1>
+        <p className="pagina-subtitulo">Último en entrar, primero en salir (LIFO).</p>
+      </header>
+
+      <section className="dos-columnas">
+        <div>
+          <h2>Agregar libro</h2>
+          <form className="formulario" onSubmit={agregar}>
+            <label>Nombre<input name="nombre" required /></label>
+            <label>ISBN<input name="isbn" required /></label>
+            <label>Autor<input name="autor" required /></label>
+            <label>Editorial<input name="editorial" required /></label>
+            <button>Apilar libro</button>
+          </form>
+        </div>
+
+        <div>
+          <h2>Pila ({vista.length})</h2>
+          <p role="status">{mensaje}</p>
+          <button onClick={retirar} disabled={!vista.length}>Retirar el de arriba</button>
+          <ol className="lista-datos">
+            {[...vista].reverse().map((libro, indice) => (
+              <li key={`${libro.isbn}-${vista.length - indice}`}>
+                <strong>{libro.nombre}</strong>
+                <span>{libro.autor} · {libro.editorial}</span>
+                <small>ISBN {libro.isbn}{indice === 0 ? ' · arriba' : ''}</small>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    </div>
+  );
 }

@@ -8,12 +8,13 @@ import ColaCajeroPage from './paginas/ColaCajeroPage';
 import ArbolBinarioPage from './paginas/ArbolBinarioPage';
 import ArbolMenusPage from './paginas/ArbolMenusPage';
 import GrafoAmigosPage from './paginas/GrafoAmigosPage';
+import BusquedaProductosPage from './paginas/BusquedaProductosPage';
 
 export default function App() {
   return (
     <div className="app">
       <nav className="menu">
-        <span className="menu-marca">Listas Enlazadas</span>
+        <span className="menu-marca">Estructuras de Datos II</span>
         <NavLink to="/" end>
           Inicio
         </NavLink>
@@ -25,6 +26,7 @@ export default function App() {
         <NavLink to="/arbol-binario">Árbol binario</NavLink>
         <NavLink to="/arbol-menus">Menú N-ario</NavLink>
         <NavLink to="/grafo-amigos">Grafo</NavLink>
+        <NavLink to="/busqueda-productos">Buscador</NavLink>
       </nav>
 
       <main>
@@ -36,13 +38,14 @@ export default function App() {
           <Route path="/pila-libros" element={<PilaLibrosPage />} />
           <Route path="/cola-cajero" element={<ColaCajeroPage />} />
           <Route path="/arbol-binario" element={<ArbolBinarioPage />} />
-          <Route path="/arbol-menus" element={<ArbolMenusPage />} />
+          <Route path="/arbol-menus/*" element={<ArbolMenusPage />} />
           <Route path="/grafo-amigos" element={<GrafoAmigosPage />} />
+          <Route path="/busqueda-productos" element={<BusquedaProductosPage />} />
         </Routes>
       </main>
 
       <footer className="pie">
-        Reto 03 de Estructuras de Datos II, Universidad Autónoma de Occidente
+        Retos de Estructuras de Datos II, Universidad Autónoma de Occidente
       </footer>
     </div>
   );
